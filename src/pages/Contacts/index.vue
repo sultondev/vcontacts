@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import TheModal from "../../components/TheModal.vue";
+import TheModal from "@/components/TheModal.vue";
 const isModaOpen = ref(false);
 function closeModal() {
   isModaOpen.value = false;

@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 interface Props {
-  containerClasses?: boolean;
+  containerClasses?: string;
   windowNum?: number | string;
   isModalOpen: boolean;
 }

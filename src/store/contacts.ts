@@ -1,7 +1,8 @@
-import { ref, Ref } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 
 export const useContactsStore = defineStore("contactsStore", () => {
-  const contacts: Ref<[]> = ref([]);
+  const contacts = ref([]);
+
   return { contacts };
 });
