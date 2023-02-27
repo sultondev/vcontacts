@@ -21,6 +21,21 @@
 
 [Link for demo](https://vcontacts.vercel.app/)
 
+## Things I did not do
+
+- contacts filtration
+- contacts search
+
+I could do these tasks on fron-end but because I setup strapi
+I couldn't finish on time. Nevertheless, I have the exact example of these tasks.
+
+similar project that I did
+[github link](https://github.com/sultondev/metasenat-club)
+[live demo](https://metsenat-club.vercel.app/)
+
+login: metsenatadmin
+password: uF9aH1vZ3bV2kN2y
+
 ## Warning !
 
 if you have any troubleshooting while registration or login in project
@@ -33,3 +48,6 @@ and render.com regularly cleans the cache.
 if any problems with back-end write me
 
 [@sultondev](https://t.me/)
+
+
+

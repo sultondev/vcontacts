@@ -25,6 +25,7 @@ authProtectedApi.interceptors.response.use(
   function (error: any) {
     if (error?.response.status === 403 || error?.response.status === 401) {
       localStorage.removeItem("token");
+      location.reload();
     }
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // console.log("interceptor request error");
