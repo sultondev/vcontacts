@@ -54,7 +54,7 @@ export const router = createRouter({
           component: ContactsPage,
         },
         {
-          path: "/tags",
+          path: "/tags.ts",
           component: TagsPage,
         },
       ],

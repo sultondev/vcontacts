@@ -52,7 +52,7 @@
 import { ref, onMounted } from "vue";
 import TheModal from "@/components/TheModal.vue";
 import CreateContact from "@/components/ModalForms/CreateContact.vue";
-import { useContactsStore } from "@/store/contacts";
+import { useContactsStore } from "@/store/useContacts";
 const isModaOpen = ref(false);
 
 function closeModal() {

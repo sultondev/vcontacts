@@ -25,8 +25,12 @@
 <script setup lang="ts">
 import TheNavbar from "@/components/TheNavbar.vue";
 import { useUserStore } from "@/store/userStore";
+import { useTagsStore } from "@/store/useTags";
 
 const userStore = useUserStore();
+const tagsStore = useTagsStore();
+
+tagsStore.initialize();
 </script>
 
 <style>

@@ -8,6 +8,7 @@
         max="30"
         min="3"
         field-key="name"
+        placeholder="Enter your name"
       />
     </FormGroup>
     <FormGroup title="Phone" class="text-white">
@@ -18,6 +19,7 @@
         class="py-1 px-2 rounded-md border-2 text-white"
         prefix="+998"
         maskaOptions="## ###-##-##"
+        placeholder="Enter phone number"
         field-key="phone"
       />
     </FormGroup>
@@ -50,14 +52,13 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import Input from "@/components/UI/Input.vue";
-import { minLength, required } from "@vuelidate/validators";
-import { useContactsStore } from "@/store/contacts";
+import { minLength, required, email } from "@vuelidate/validators";
+import { useContactsStore } from "@/store/useContacts";
 import FormGroup from "@/components/UI/FormGroup.vue";
 import Button from "@/components/UI/Button.vue";
 import { authProtectedApi } from "@/config/axios.config";
 import { useForm } from "@/composables/useForm";
 import { phoneMaskClean } from "@/helpers";
-import { ContactDataType } from "@/typing/types/contacts";
 
 interface Emits {
   (e: "closeModal"): void;
@@ -87,6 +88,7 @@ const formData: any = useForm(
     },
     email: {
       required,
+      email,
     },
   }
 );
@@ -103,7 +105,6 @@ async function createContact() {
         contactStore.initialize();
         console.log(response);
       });
-    clearInputs();
     emits("closeModal");
   }
   // v$.$reset();
