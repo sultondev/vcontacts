@@ -1,11 +1,18 @@
-<script setup lang="ts">
-import { useContactsStore } from "./store/contacts";
+<script>
+import { defineComponent } from "vue";
+import TheNavbar from "@/components/TheNavbar.vue";
 
-const contactsStore = useContactsStore();
+export default defineComponent({
+  components: { TheNavbar },
+});
 </script>
 
 <template>
   <router-view />
 </template>
 
-<style scoped></style>
+<style>
+body {
+  background: #050134;
+}
+</style>
