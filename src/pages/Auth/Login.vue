@@ -16,7 +16,9 @@
               field-key="identifier"
               placeholder="Enter username or email"
               @input-change="handleInputChange"
-              :error="v$.identifier.$error"
+              :error="
+                formData.$v?.value?.identifier?.$error || formStatus.error
+              "
               max="20"
             />
           </FormGroup>
@@ -29,7 +31,7 @@
               type="password"
               @input-change="handleInputChange"
               max="30"
-              :error="v$.password.$error"
+              :error="formData.$v?.value?.password?.$error || formStatus.error"
             />
           </FormGroup>
           <Button
@@ -37,7 +39,7 @@
             aria-label="Submit"
             spinner-color="#cdcdcd"
             class="bg-[#2A0096] text-white py-2 rounded-xl text-center disabled:opacity-50"
-            :loading="loading"
+            :loading="formStatus.loading"
           >
             Login
           </Button>
@@ -54,50 +56,57 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from "vue";
+import { reactive } from "vue";
 import { publicApi } from "@/config/axios.config";
-import { useVuelidate } from "@vuelidate/core";
-import { required, email } from "@vuelidate/validators";
+import { required } from "@vuelidate/validators";
 import FormGroup from "@/components/UI/FormGroup.vue";
 import Input from "@/components/UI/Input.vue";
 import Button from "@/components/UI/Button.vue";
 import { RegisterResponse } from "@/typing/types/fetchResponses";
-const formData: any = reactive({
-  identifier: "",
-  password: "",
+import { useForm } from "@/composables/useForm";
+
+const formData: any = useForm(
+  {
+    identifier: "",
+    password: "",
+  },
+  {
+    identifier: {
+      required,
+    },
+    password: {
+      required,
+    },
+  }
+);
+const formStatus = reactive({
+  loading: false,
+  error: false,
 });
 
-const loading = ref(false);
-
-const rules = {
-  identifier: {
-    required,
-  },
-  password: {
-    required,
-  },
-};
-
-const v$ = useVuelidate(rules, formData);
 async function handleSubmit() {
-  const result = await v$.value.$validate();
-  if (result) {
-    loading.value = true;
+  formData.$v.value.$touch();
+  if (!formData.$v.value.$invalid) {
+    formStatus.loading = true;
     await publicApi
-      .post("/auth/local", JSON.stringify(formData))
+      .post("/auth/local", JSON.stringify(formData.values))
       .then((response: RegisterResponse) => {
         if (response.status === 200) {
           localStorage.setItem("token", response.data.jwt);
           location.reload();
         }
       })
+      .catch((error) => {
+        console.log(error);
+        formStatus.error = true;
+      })
       .finally(() => {
-        loading.value = false;
+        formStatus.loading = false;
       });
   }
 }
 
 function handleInputChange(value: string, key: string) {
-  formData[key] = value;
+  formData.values[key] = value;
 }
 </script>

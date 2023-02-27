@@ -9,7 +9,7 @@
 
     <div class="w-[80%] mx-auto pt-2">
       <h5 class="text-3xl text-white text-center">Contacts</h5>
-      <ul class="flex flex-col gap-2">
+      <ul class="flex flex-col gap-2" v-if="contactStore.contacts.length > 0">
         <li
           v-for="item in contactStore.contacts"
           class="px-6 py-5 transition-all duration-300 cursor-pointer bg-[#DBE3FF1A] hover:bg-[#4200D8b9] rounded-lg text-white"
@@ -24,6 +24,13 @@
           </div>
         </li>
       </ul>
+      <div
+        class="mx-auto flex flex-col items-center justify-center my-20"
+        v-else
+      >
+        <img src="@/assets/images/no-data.svg" alt="" class="w-[260px]" />
+        <h6 class="text-white text-4xl">No data</h6>
+      </div>
     </div>
     <teleport to="#modal">
       <TheModal
@@ -42,14 +49,11 @@ import { ref, onMounted } from "vue";
 import TheModal from "@/components/TheModal.vue";
 import CreateContact from "@/components/ModalForms/CreateContact.vue";
 import { useContactsStore } from "@/store/contacts";
-import Input from "@/components/UI/Input.vue";
 const isModaOpen = ref(false);
 
 function closeModal() {
   isModaOpen.value = false;
 }
 const contactStore = useContactsStore();
-onMounted(() => {
-  contactStore.initialize();
-});
+contactStore.initialize();
 </script>
