@@ -1,1 +1,3 @@
-<template>Tags</template>
+<template>
+  <div class="text-white">Tags</div>
+</template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full relative">
+  <div class="w-full relative text-white">
     <button
       @click="isModaOpen = true"
       class="absolute right-0 bg-[#2A0096] hover:bg-[#6909B8] m-2 p-3 rounded-full"
@@ -9,7 +9,10 @@
 
     <div class="w-[80%] mx-auto pt-2">
       <h5 class="text-3xl text-white text-center">Contacts</h5>
-      <ul class="flex flex-col gap-2" v-if="contactStore.contacts.length > 0">
+      <ul
+        class="flex flex-col gap-2 mt-12"
+        v-if="contactStore.contacts.length > 0"
+      >
         <li
           v-for="item in contactStore.contacts"
           class="px-6 py-5 transition-all duration-300 cursor-pointer bg-[#DBE3FF1A] hover:bg-[#4200D8b9] rounded-lg text-white"
@@ -24,6 +27,7 @@
           </div>
         </li>
       </ul>
+      <div class="" v-else-if="contactStore.status.loading">Loading...</div>
       <div
         class="mx-auto flex flex-col items-center justify-center my-20"
         v-else

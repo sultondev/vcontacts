@@ -11,6 +11,12 @@
         />
       </div>
       <TheNavbar />
+      <button
+        class="logout absolute bottom-4 left-1/2 -translate-x-1/2"
+        @click="userStore.logout"
+      >
+        Log Out
+      </button>
     </div>
     <router-view />
   </div>
@@ -18,4 +24,13 @@
 
 <script setup lang="ts">
 import TheNavbar from "@/components/TheNavbar.vue";
+import { useUserStore } from "@/store/userStore";
+
+const userStore = useUserStore();
 </script>
+
+<style>
+.logout {
+  @apply transition-all whitespace-nowrap duration-200 p-2 bg-[#2A0096] text-white justify-self-end hover:bg-[#6909B8] block rounded-lg;
+}
+</style>
