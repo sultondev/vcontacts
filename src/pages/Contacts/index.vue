@@ -16,6 +16,7 @@
         <li
           v-for="item in contactStore.contacts"
           class="px-6 py-5 transition-all duration-300 cursor-pointer bg-[#DBE3FF1A] hover:bg-[#4200D8b9] rounded-lg text-white"
+          :key="item.id + item.email"
         >
           <div class="flex flex-col">
             <span class="text-sm font-medium leading-md">
@@ -23,6 +24,15 @@
             </span>
             <span class="text-[#DBE3FFA2] text-xs font-normal">
               +998 {{ item.phone }}
+            </span>
+            <span class="flex my-1" v-if="item.tags">
+              <span
+                v-for="tag in item.tags"
+                :key="tag.title + tag.id"
+                class="hashtag"
+              >
+                #{{ tag.title }}
+              </span>
             </span>
           </div>
         </li>
@@ -61,3 +71,9 @@ function closeModal() {
 const contactStore = useContactsStore();
 contactStore.initialize();
 </script>
+
+<style>
+.hashtag {
+  @apply text-xs bg-[#0080D0] p-1 block rounded-md;
+}
+</style>

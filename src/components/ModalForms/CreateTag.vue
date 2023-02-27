@@ -35,6 +35,7 @@ import Button from "@/components/UI/Button.vue";
 import { authProtectedApi } from "@/config/axios.config";
 import { useForm } from "@/composables/useForm";
 import { useUserStore } from "@/store/userStore";
+import { useTagsStore } from "@/store/useTags";
 
 interface Emits {
   (e: "closeModal"): void;
@@ -46,7 +47,7 @@ const formStatus = reactive({
 });
 const emits = defineEmits<Emits>();
 
-const tagsStore = useContactsStore();
+const tagsStore = useTagsStore();
 const userStore = useUserStore();
 
 const formData: any = useForm(
@@ -70,7 +71,6 @@ async function createContact() {
       })
       .then((response: any) => {
         tagsStore.initialize();
-        console.log(response);
       });
     emits("closeModal");
   }

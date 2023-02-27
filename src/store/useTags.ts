@@ -11,5 +11,12 @@ export const useTagsStore = defineStore("useTagsStore", () => {
       }
     });
   }
-  return { tags, initialize };
+  function findTagById(id: number | string) {
+    console.log(
+      tags,
+      tags.value.find((element: TagsDataType) => element.id == id)
+    );
+    return tags.value.find((element: TagsDataType) => element.id == id);
+  }
+  return { tags, initialize, findTagById };
 });

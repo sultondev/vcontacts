@@ -33,6 +33,19 @@
         placeholder="enter username or email"
       />
     </FormGroup>
+    <FormGroup title="Tags" header-classes="text-white">
+      <OneSelect
+        v-model="value"
+        :options="formatedTags || []"
+        class="w-[400px]"
+        label-key="name"
+      >
+        <template #selectedOption="{ value }">
+          <span v-if="!value">Select</span>
+          <span v-else> {{ value?.name }} </span>
+        </template>
+      </OneSelect>
+    </FormGroup>
 
     <Button
       type="submit"
@@ -50,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, ref, computed } from "vue";
 import Input from "@/components/UI/Input.vue";
 import { minLength, required, email } from "@vuelidate/validators";
 import { useContactsStore } from "@/store/useContacts";
@@ -59,7 +72,8 @@ import Button from "@/components/UI/Button.vue";
 import { authProtectedApi } from "@/config/axios.config";
 import { useForm } from "@/composables/useForm";
 import { phoneMaskClean } from "@/helpers";
-
+import OneSelect from "@/components/UI/OneSelect.vue";
+import { useTagsStore } from "@/store/useTags";
 interface Emits {
   (e: "closeModal"): void;
 }
@@ -69,9 +83,14 @@ const formStatus = reactive({
   error: false,
 });
 const emits = defineEmits<Emits>();
-
+const value = ref("");
 const contactStore = useContactsStore();
-
+const tagsStore = useTagsStore();
+const formatedTags = computed(
+  () =>
+    tagsStore.tags &&
+    tagsStore.tags.map((item: any) => ({ id: item.id, name: item.title }))
+);
 const formData: any = useForm(
   {
     name: "",
@@ -100,14 +119,13 @@ async function createContact() {
       .post("/contacts", {
         ...formData.values,
         phone: phoneMaskClean(formData.values.phone),
+        tags: [tagsStore.findTagById(value.value)],
       })
       .then((response: any) => {
         contactStore.initialize();
-        console.log(response);
       });
     emits("closeModal");
   }
-  // v$.$reset();
 }
 function handleInputChange(value: string, key: string) {
   formData.values[key] = value;
