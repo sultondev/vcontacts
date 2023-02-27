@@ -3,3 +3,10 @@ export type Contact = {
   name: string;
   phone: string;
 };
+
+export type ContactDataType = {
+  id: number;
+  name: string;
+  phone: string;
+  email: string;
+};

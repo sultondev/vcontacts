@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 import { authProtectedApi } from "@/config/axios.config";
 import { UserSelfResponse } from "@/typing/types/fetchResponses";
 export const useUserStore = defineStore("userStore", () => {
-  const user = ref(null);
+  const user: any = ref(null);
 
   async function checkAuth() {
     authProtectedApi

@@ -71,7 +71,7 @@ import FormGroup from "@/components/UI/FormGroup.vue";
 import Input from "@/components/UI/Input.vue";
 import Button from "@/components/UI/Button.vue";
 import { RegisterResponse } from "@/typing/types/fetchResponses";
-const formData = reactive({
+const formData: any = reactive({
   username: "",
   email: "",
   password: "",

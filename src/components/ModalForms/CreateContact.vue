@@ -53,12 +53,13 @@ import { minLength, required } from "@vuelidate/validators";
 import { useContactsStore } from "@/store/contacts";
 import FormGroup from "@/components/UI/FormGroup.vue";
 import Button from "@/components/UI/Button.vue";
+import { ContactDataType } from "@/typing/types/contacts";
 
 interface Emits {
   (e: "closeModal"): void;
 }
 const emits = defineEmits<Emits>();
-const contactData = reactive({
+const contactData: any = reactive({
   id: 0,
   name: "",
   phone: "",

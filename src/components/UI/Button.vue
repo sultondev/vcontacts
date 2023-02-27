@@ -37,9 +37,9 @@
 
 <script setup lang="ts">
 interface Props {
-  text: string;
-  loading: boolean;
-  spinnerColor: string;
+  text?: string;
+  loading?: boolean;
+  spinnerColor?: string;
 }
 
 const props = defineProps<Props>();

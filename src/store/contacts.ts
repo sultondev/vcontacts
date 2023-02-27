@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 import { Contact } from "@/typing/types/contacts";
 
 export const useContactsStore = defineStore("contactsStore", () => {
-  const contacts: Ref<Contact[] | []> = ref([]);
+  const contacts: Ref<Contact[] | [] | any> = ref([]);
   function initialize() {
     const localContacts = JSON.parse(localStorage.getItem("contacts") || "[]");
     if (localContacts) {
@@ -14,6 +14,7 @@ export const useContactsStore = defineStore("contactsStore", () => {
     initialize();
   }
 
+  //@ts-ignore
   function addContact(data: Contact) {
     contacts.value.push(data);
   }

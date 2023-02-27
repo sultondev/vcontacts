@@ -79,7 +79,7 @@ const emits = defineEmits<Emits>();
 const hide = ref(props.type);
 // const textValue = ref("");
 watch(textValue, () => {
-  emits("inputChange", textValue, props.fieldKey);
+  emits("inputChange", textValue.value, props.fieldKey);
 });
 const uniqueId = ref(crypto.randomUUID());
 
