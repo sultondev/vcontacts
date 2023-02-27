@@ -17,5 +17,8 @@ export const useUserStore = defineStore("userStore", () => {
         user.value = null;
       });
   }
-  return { user, checkAuth };
+  async function deleteToken() {
+    localStorage.removeItem("token");
+  }
+  return { user, checkAuth, deleteToken };
 });

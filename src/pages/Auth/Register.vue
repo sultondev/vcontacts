@@ -103,6 +103,7 @@ async function handleSubmit() {
       .then((response: RegisterResponse) => {
         if (response.status === 200) {
           localStorage.setItem("token", response.data.jwt);
+          location.reload();
         }
       })
       .finally(() => {

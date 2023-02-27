@@ -72,11 +72,12 @@ function guardAuth(
   next: any
 ) {
   const userStore = useUserStore();
-  // userStore.checkAuth();
+  userStore.checkAuth();
   if (to.matched.some((record: any) => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not to redirect to login page.
     if (!localStorage.getItem("token")) {
+      userStore.deleteToken();
       next({ name: "LoginPage" });
     }
     // else if (userStore.user) {
@@ -100,7 +101,7 @@ function hideForAuth(
     (to.path === "/login" || to.path === "/registration") &&
     localStorage.getItem("token")
   ) {
-    next("/dashboard");
+    next({ name: "DashboardPage" });
   } else {
     next();
   }

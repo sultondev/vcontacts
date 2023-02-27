@@ -7,7 +7,7 @@
         <h6 class="text-3xl text-[#0080D0] uppercase text-center font-bold">
           V Contacts
         </h6>
-        <p class="text-white text-center mb-4">Login</p>
+        <p class="text-white text-center text-2xl m-4">Login</p>
         <form @submit.prevent="handleSubmit" class="flex flex-col gap-4">
           <FormGroup title="Username" class="text-white">
             <Input
@@ -42,6 +42,12 @@
             Login
           </Button>
         </form>
+        <router-link
+          to="/registration"
+          class="block mt-4 text-gray-500 text-center text-xs"
+        >
+          I don't have account
+        </router-link>
       </div>
     </div>
   </section>
@@ -82,6 +88,7 @@ async function handleSubmit() {
       .then((response: RegisterResponse) => {
         if (response.status === 200) {
           localStorage.setItem("token", response.data.jwt);
+          location.reload();
         }
       })
       .finally(() => {
